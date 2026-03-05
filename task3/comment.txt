@@ -1,0 +1,27 @@
+// ============================================================
+    // FOR TASK 3 TO CONNECT - Use these to get/save results:
+    // ============================================================
+    // getResults() - returns pointer to results array
+    // getResultCount() - returns number of results stored
+    // 
+    // Task 3 can use this to save results to result.txt:
+    //   ActivityStack stack;
+    //   ActivityResult* results = stack.getResults();
+    //   int count = stack.getResultCount();
+    //   for (int i = 0; i < count; i++) {
+    //       // Write results[i] to result.txt
+    //       // results[i].learnerId, results[i].activityId (chapter), 
+    //       // results[i].score, results[i].duration, results[i].failAttempts,
+    //       // results[i].totalAttempt, results[i].complete, results[i].datetime
+    //   }
+    // ============================================================
+
+    // ============================================================
+// ADD RESULT TO ARRAY
+// This stores results in memory. Task 3 can use 
+// getResults() and getResultCount() to save to result.txt
+// 
+// Result format stored:
+//   learnerId, chapter (activityId), score, duration, 
+//   failAttempts, totalAttempt, complete, datetime
+// ============================================================

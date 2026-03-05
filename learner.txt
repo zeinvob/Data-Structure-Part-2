@@ -1,0 +1,12 @@
+10001,John Doe,john@example.com,20
+10002,t,t@gmail.com,21
+10003,John Lim,John@gmail.com,32
+10004,Olivia,olivia@yahoo.com,25
+10005,Charlotte,char@gmail.com,31
+10006,Michael,mic@yahoo.com,43
+10007,William,will@gmail.com,26
+10008,Amelia,ame@gmail.com,27
+10009,Sophia,sop@yahoo.com,36
+10010,Harper,har@gamil.com,28
+10011,Matilda,matlida@gmail.com,32
+10012,James Lim,Lim@gmail.com,15
