@@ -20,9 +20,37 @@ int ActivityLog::getCount() const
     return logs.getCount();
 }
 
+bool ActivityLog::isSameRecord(const ActivityResult &a, const ActivityResult &b) const
+{
+    return a.learnerId == b.learnerId &&
+           a.activityId == b.activityId &&
+           a.score == b.score &&
+           a.duration == b.duration &&
+           a.failAttempts == b.failAttempts &&
+           a.totalAttempt == b.totalAttempt &&
+           a.complete == b.complete &&
+           a.datetime == b.datetime;
+}
+
+bool ActivityLog::contains(const ActivityResult &result) const
+{
+    for (int i = 0; i < logs.getCount(); i++)
+    {
+        ActivityResult current = logs.getAt(i);
+        if (isSameRecord(current, result))
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void ActivityLog::addLog(const ActivityResult &result)
 {
-    logs.enqueue(result);
+    if (!contains(result))
+    {
+        logs.enqueue(result);
+    }
 }
 
 string ActivityLog::getLearnerNameById(int learnerId) const
@@ -403,4 +431,62 @@ void ActivityLog::exportToFile(const string &filename) const
 
     fout.close();
     cout << "\nLogs exported successfully to " << filename << ".\n";
+}
+
+void ActivityLog::loadFromFile(const string &filename)
+{
+    ifstream fin(filename);
+
+    if (!fin.is_open())
+    {
+        return;
+    }
+
+    logs.clear();
+
+    string line;
+    while (getline(fin, line))
+    {
+        if (line.empty())
+            continue;
+
+        stringstream ss(line);
+        string token;
+        ActivityResult temp;
+
+        try
+        {
+            getline(ss, token, ',');
+            temp.learnerId = stoi(token);
+
+            getline(ss, token, ',');
+            temp.activityId = stoi(token);
+
+            getline(ss, token, ',');
+            temp.score = stod(token);
+
+            getline(ss, token, ',');
+            temp.duration = stoi(token);
+
+            getline(ss, token, ',');
+            temp.failAttempts = stoi(token);
+
+            getline(ss, token, ',');
+            temp.totalAttempt = stoi(token);
+
+            getline(ss, token, ',');
+            temp.complete = (stoi(token) == 1);
+
+            getline(ss, token);
+            temp.datetime = token;
+
+            addLog(temp);
+        }
+        catch (...)
+        {
+            continue;
+        }
+    }
+
+    fin.close();
 }

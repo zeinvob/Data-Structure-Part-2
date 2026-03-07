@@ -19,6 +19,7 @@ public:
     bool isFull() const;
     int getCount() const;
 
+    void clear();
     void enqueue(const ActivityResult &item);
     ActivityResult getAt(int logicalIndex) const;
 };

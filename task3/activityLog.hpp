@@ -18,6 +18,9 @@ private:
     int getLearnerAgeById(int learnerId) const;
     string getChapterLabel(int activityId) const;
 
+    bool isSameRecord(const ActivityResult &a, const ActivityResult &b) const;
+    bool contains(const ActivityResult &result) const;
+
 public:
     ActivityLog(int size = 100);
 
@@ -25,7 +28,6 @@ public:
     int getCount() const;
 
     void addLog(const ActivityResult &result);
-
     void displayAllLogs() const;
     void displayLogsByLearner(int learnerId) const;
     void displayCompletedLogs() const;
@@ -33,6 +35,7 @@ public:
     void showLearnerSummary(int learnerId) const;
 
     void exportToFile(const string &filename = "result.txt") const;
+    void loadFromFile(const string &filename = "result.txt");
 };
 
 #endif

@@ -23,6 +23,13 @@ int CircularQueue::getCount() const
     return count;
 }
 
+void CircularQueue::clear()
+{
+    front = 0;
+    rear = -1;
+    count = 0;
+}
+
 void CircularQueue::enqueue(const ActivityResult &item)
 {
     if (isFull())

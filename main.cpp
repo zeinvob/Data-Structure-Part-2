@@ -111,6 +111,8 @@ void syncTask2ResultsToTask3(ActivityStack &sessionStack, ActivityLog &activityL
     }
 
     lastSyncedCount = count;
+
+    activityLog.exportToFile("result.txt");
 }
 
 // ==================== Task 2 Menu ====================
@@ -265,6 +267,7 @@ void showMainMenu()
 
 int main()
 {
+    activityLog.loadFromFile("result.txt");
     int option;
     do
     {
