@@ -371,7 +371,7 @@ void ActivityStack::startChapterSession(int chapter, int learnerId) {
     for (int i = 0; i < resultCount; i++) {
         if (results[i].learnerId == learnerId && results[i].activityId == chapter) {
             totalAttempt++;
-            if (results[i].score < 60) failAttempts++;
+            if (results[i].complete && results[i].score < 60) failAttempts++; // completion is must to count the fail attempts 
         }
     }
     if (score < 60) {

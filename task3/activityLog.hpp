@@ -20,6 +20,7 @@ private:
 
     bool isSameRecord(const ActivityResult &a, const ActivityResult &b) const;
     bool contains(const ActivityResult &result) const;
+    int findLatestIndex(ActivityResult arr[], int size, int learnerId, int activityId) const;
 
 public:
     ActivityLog(int size = 100);
@@ -34,7 +35,13 @@ public:
     void displayIncompleteLogs() const;
     void showLearnerSummary(int learnerId) const;
 
-    void exportToFile(const string &filename = "result.txt") const;
+    // recent circular queue export only
+    void exportToFile(const string &filename = "logActivities.txt") const;
+
+    // latest-only per learner + chapter
+    void updateResultFile(const ActivityResult &result, const string &filename = "result.txt") const;
+
+    // load latest-only records back into memory at startup
     void loadFromFile(const string &filename = "result.txt");
 };
 

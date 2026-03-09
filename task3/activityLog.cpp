@@ -45,6 +45,19 @@ bool ActivityLog::contains(const ActivityResult &result) const
     return false;
 }
 
+int ActivityLog::findLatestIndex(ActivityResult arr[], int size, int learnerId, int activityId) const
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (arr[i].learnerId == learnerId && arr[i].activityId == activityId)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 void ActivityLog::addLog(const ActivityResult &result)
 {
     if (!contains(result))
@@ -405,6 +418,97 @@ void ActivityLog::showLearnerSummary(int learnerId) const
     cout << "Total FailAttempt : " << totalFailAttempts << "\n";
 }
 
+void ActivityLog::updateResultFile(const ActivityResult &result, const string &filename) const
+{
+    ActivityResult records[1000];
+    int count = 0;
+
+    ifstream fin(filename);
+    string line;
+
+    if (fin.is_open())
+    {
+        while (getline(fin, line) && count < 1000)
+        {
+            if (line.empty())
+                continue;
+
+            stringstream ss(line);
+            string token;
+            ActivityResult temp;
+
+            try
+            {
+                getline(ss, token, ',');
+                temp.learnerId = stoi(token);
+
+                getline(ss, token, ',');
+                temp.activityId = stoi(token);
+
+                getline(ss, token, ',');
+                temp.score = stod(token);
+
+                getline(ss, token, ',');
+                temp.duration = stoi(token);
+
+                getline(ss, token, ',');
+                temp.failAttempts = stoi(token);
+
+                getline(ss, token, ',');
+                temp.totalAttempt = stoi(token);
+
+                getline(ss, token, ',');
+                temp.complete = (stoi(token) == 1);
+
+                getline(ss, token);
+                temp.datetime = token;
+
+                records[count++] = temp;
+            }
+            catch (...)
+            {
+                continue;
+            }
+        }
+        fin.close();
+    }
+
+    int idx = findLatestIndex(records, count, result.learnerId, result.activityId);
+
+    if (idx == -1)
+    {
+        if (count < 1000)
+        {
+            records[count++] = result;
+        }
+    }
+    else
+    {
+        records[idx] = result;
+    }
+
+    ofstream fout(filename);
+    if (!fout.is_open())
+    {
+        cout << "\nError: unable to open " << filename << ".\n";
+        return;
+    }
+
+    for (int i = 0; i < count; i++)
+    {
+        fout << records[i].learnerId << ","
+             << records[i].activityId << ","
+             << records[i].score << ","
+             << records[i].duration << ","
+             << records[i].failAttempts << ","
+             << records[i].totalAttempt << ","
+             << (records[i].complete ? 1 : 0) << ","
+             << records[i].datetime << "\n";
+    }
+
+    fout.close();
+}
+
 void ActivityLog::exportToFile(const string &filename) const
 {
     ofstream fout(filename);
@@ -430,7 +534,6 @@ void ActivityLog::exportToFile(const string &filename) const
     }
 
     fout.close();
-    cout << "\nLogs exported successfully to " << filename << ".\n";
 }
 
 void ActivityLog::loadFromFile(const string &filename)

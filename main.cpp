@@ -102,17 +102,18 @@ void syncTask2ResultsToTask3(ActivityStack &sessionStack, ActivityLog &activityL
 {
     static int lastSyncedCount = 0;
 
-    ActivityResult *results = sessionStack.getResults();
+    ActivityResult* results = sessionStack.getResults();
     int count = sessionStack.getResultCount();
 
     for (int i = lastSyncedCount; i < count; i++)
     {
-        activityLog.addLog(results[i]);
+        activityLog.addLog(results[i]);  // in-memory recent circular queue
+        activityLog.updateResultFile(results[i], "result.txt"); // latest result only
     }
 
     lastSyncedCount = count;
 
-    activityLog.exportToFile("result.txt");
+    activityLog.exportToFile("logActivities.txt"); // recent 100 logs only
 }
 
 // ==================== Task 2 Menu ====================
@@ -197,7 +198,7 @@ void task3Menu(ActivityLog &activityLog)
         cout << "3. View Completed Logs\n";
         cout << "4. View Incomplete Logs\n";
         cout << "5. Show Learner Performance Summary\n";
-        cout << "6. Export Logs to result.txt\n";
+        cout << "6. Export Activity Records\n";
         cout << "0. Back\n";
         cout << "Enter choice: ";
         cin >> choice;
@@ -235,7 +236,8 @@ void task3Menu(ActivityLog &activityLog)
         }
 
         case 6:
-            activityLog.exportToFile("result.txt");
+            activityLog.exportToFile("logActivities.txt");
+            cout << "\nLogs exported successfully." << "\n";
             break;
 
         case 0:
@@ -267,7 +269,7 @@ void showMainMenu()
 
 int main()
 {
-    activityLog.loadFromFile("result.txt");
+    activityLog.loadFromFile("logActivities.txt");
     int option;
     do
     {
