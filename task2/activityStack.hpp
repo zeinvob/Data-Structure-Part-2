@@ -18,6 +18,7 @@ public:
     void saveProgress(int learnerId, int chapter, int answers[5], int currentQ, int elapsedTime); // save progress to file
     void clearSavedProgress(int learnerId); // clear saved progress after completion
     void loadCompletedChapters(int learnerId); // load completed chapters from results array
+    bool getPreviousChapterResult(int learnerId, int chapter, ActivityResult &previousResult); // previous attempts and all history from result.txt
     
     ActivityResult* getResults() { return results; }
     int getResultCount() { return resultCount; }

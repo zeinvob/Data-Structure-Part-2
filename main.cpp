@@ -10,6 +10,7 @@
 #include "task2/activityStack.hpp"
 #include "task3/activityLog.hpp"
 // g++ -o main main.cpp model/activityDef.cpp task2/activityStack.cpp
+// g++ main.cpp model/activityDef.cpp task1/registration_session.cpp task2/activityStack.cpp task3/circularQueue.cpp task3/activityLog.cpp task4/recommendationEngine.cpp task4/riskCalculator.cpp -o main.exe
 
 using namespace std;
 
