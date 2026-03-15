@@ -11,23 +11,23 @@
 using namespace std;
 
 // Helper: any integer input
-int getIntInputForMenu() {
+static int getIntInputForMenu() {
     int value;
     while (!(cin >> value)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input. Please enter a number: ";
+        cout << "Invalid input.\nPlease enter a number: ";
     }
     return value;
 }
 
-// Helper: ositive integer input (for Learner ID)
-int getPositiveInt() {
+// Helper: positive integer input (for Learner ID)
+static int getPositiveInt() {
     int value;
     while (!(cin >> value) || value <= 0) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid ID. Enter a positive number: ";
+        cout << "Invalid ID.\nEnter a positive number: ";
     }
     return value;
 }

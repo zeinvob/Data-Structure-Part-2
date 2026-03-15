@@ -1,0 +1,11 @@
+LearnerID,RiskScore,RiskLevel,WeakChapter,Recommendation
+10009,72.5,High,Ch2,Repeat Ch2 + easier activity
+10004,58.3,Medium,Ch2,Review Ch2
+10006,45.2,Medium,Ch2,Review Ch2
+10002,28.5,Low,Ch2,Continue learning
+10007,22.1,Low,Ch3,Continue learning
+10010,18.4,Low,Ch1,Continue learning
+10001,12.3,Low,Ch2,Continue learning
+10003,8.5,Low,Ch2,Continue learning
+10008,5.2,Low,Ch3,Continue learning
+10005,3.1,Low,Ch3,Continue learning

@@ -8,7 +8,6 @@
 
 using namespace std;
 
-// ====================================================================== edited starts
 // previous attempts and all history from result.txt
 bool ActivityStack::getPreviousChapterResult(int learnerId, int chapter, ActivityResult &previousResult)
 {
@@ -69,7 +68,6 @@ bool ActivityStack::getPreviousChapterResult(int learnerId, int chapter, Activit
     fin.close();
     return found;
 }
-///////////////////////////////////////////////////////////////////////// ===== edited ends
 
 // Get current date and time as string
 string getCurrentDateTime()
@@ -107,12 +105,12 @@ bool ActivityStack::hasSavedProgress(int learnerId)
     while (getline(fin, line))
     {
         if (line.empty())
-            continue; // Skip empty lines
+            continue; 
         stringstream ss(line);
         string token;
         getline(ss, token, ',');
         if (token.empty())
-            continue; // Skip if no valid data
+            continue; 
         try
         {
             if (stoi(token) == learnerId)
@@ -123,7 +121,7 @@ bool ActivityStack::hasSavedProgress(int learnerId)
         }
         catch (...)
         {
-            continue; // Skip invalid lines
+            continue; 
         }
     }
     fin.close();
@@ -136,17 +134,17 @@ void ActivityStack::loadSavedProgress(int learnerId, int &chapter, int answers[5
     ifstream fin("progress.txt");
     if (!fin.is_open())
         return;
-    elapsedTime = 0; // Default
+    elapsedTime = 0; 
     string line;
     while (getline(fin, line))
     {
         if (line.empty())
-            continue; // Skip empty lines
+            continue; 
         stringstream ss(line);
         string token;
         getline(ss, token, ',');
         if (token.empty())
-            continue; // Skip if no valid data
+            continue; 
         try
         {
             if (stoi(token) == learnerId)
@@ -170,7 +168,7 @@ void ActivityStack::loadSavedProgress(int learnerId, int &chapter, int answers[5
         }
         catch (...)
         {
-            continue; // Skip invalid lines
+            continue; 
         }
     }
     fin.close();
@@ -179,10 +177,8 @@ void ActivityStack::loadSavedProgress(int learnerId, int &chapter, int answers[5
 // Save progress to file
 void ActivityStack::saveProgress(int learnerId, int chapter, int answers[5], int currentQ, int elapsedTime)
 {
-    // First, remove any existing progress for this learner
     clearSavedProgress(learnerId);
 
-    // Append new progress
     ofstream fout("progress.txt", ios::app);
     if (fout.is_open())
     {

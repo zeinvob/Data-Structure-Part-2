@@ -101,6 +101,11 @@ public:
         count = 0;
         while (getline(inFile, line) && count < 5)
         {
+            // Remove carriage return if present (Windows line endings)
+            if (!line.empty() && line.back() == '\r')
+            {
+                line.pop_back();
+            }
             size_t commaPos = line.find(',');
             if (commaPos != string::npos)
             {

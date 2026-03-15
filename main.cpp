@@ -9,7 +9,7 @@
 #include "task1/session.hpp"
 #include "task2/activityStack.hpp"
 #include "task3/activityLog.hpp"
-// g++ -o main main.cpp model/activityDef.cpp task2/activityStack.cpp
+#include "task4/recommendationEngine.hpp"
 // g++ main.cpp model/activityDef.cpp task1/registration_session.cpp task2/activityStack.cpp task3/circularQueue.cpp task3/activityLog.cpp task4/recommendationEngine.cpp task4/riskCalculator.cpp -o main.exe
 
 using namespace std;
@@ -256,7 +256,7 @@ void task3Menu(ActivityLog &activityLog)
 
 void showMainMenu()
 {
-    cout << "========================================\n";
+    cout << "\n========================================\n";
     cout << "PLAPS - Main Menu\n";
     cout << "========================================\n";
     cout << "1. Task 1: Learner Registration & Session Management\n";
@@ -288,7 +288,7 @@ int main()
             task3Menu(activityLog);
             break;
         case 4:
-            // Task 4 logic
+            task4Menu();
             break;
         case 0:
             cout << "Exiting...\n";

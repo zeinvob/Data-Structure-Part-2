@@ -6,24 +6,20 @@
 
 using namespace std;
 
-// constructor to create activity log with a fixed size
 ActivityLog::ActivityLog(int size) : logs(size)
 {
 }
 
-// check if the log queue is empty
 bool ActivityLog::isEmpty() const
 {
     return logs.isEmpty();
 }
 
-// get total number of logs
 int ActivityLog::getCount() const
 {
     return logs.getCount();
 }
 
-// compare two activity records to see if they are exactly the same
 bool ActivityLog::isSameRecord(const ActivityResult &a, const ActivityResult &b) const
 {
     return a.learnerId == b.learnerId &&
@@ -36,7 +32,6 @@ bool ActivityLog::isSameRecord(const ActivityResult &a, const ActivityResult &b)
            a.datetime == b.datetime;
 }
 
-// check if a record already exists in the logs
 bool ActivityLog::contains(const ActivityResult &result) const
 {
     for (int i = 0; i < logs.getCount(); i++)
@@ -50,7 +45,6 @@ bool ActivityLog::contains(const ActivityResult &result) const
     return false;
 }
 
-// find the index of the latest record for the same learner and activity
 int ActivityLog::findLatestIndex(ActivityResult arr[], int size, int learnerId, int activityId) const
 {
     for (int i = 0; i < size; i++)
@@ -63,7 +57,6 @@ int ActivityLog::findLatestIndex(ActivityResult arr[], int size, int learnerId, 
     return -1;
 }
 
-// add a new log only if it is not already in the queue
 void ActivityLog::addLog(const ActivityResult &result)
 {
     if (!contains(result))
@@ -72,7 +65,6 @@ void ActivityLog::addLog(const ActivityResult &result)
     }
 }
 
-// get learner name by searching learner id in learner.txt
 string ActivityLog::getLearnerNameById(int learnerId) const
 {
     ifstream fin("learner.txt");
@@ -113,7 +105,6 @@ string ActivityLog::getLearnerNameById(int learnerId) const
     return "Unknown";
 }
 
-// get learner email by searching learner id in learner.txt
 string ActivityLog::getLearnerEmailById(int learnerId) const
 {
     ifstream fin("learner.txt");
@@ -155,7 +146,6 @@ string ActivityLog::getLearnerEmailById(int learnerId) const
     return "Unknown";
 }
 
-// get learner age by searching learner id in learner.txt
 int ActivityLog::getLearnerAgeById(int learnerId) const
 {
     ifstream fin("learner.txt");
@@ -199,7 +189,6 @@ int ActivityLog::getLearnerAgeById(int learnerId) const
     return -1;
 }
 
-// return chapter label or activity name based on activity id
 string ActivityLog::getChapterLabel(int activityId) const
 {
     if (activityId == 1)
@@ -220,7 +209,6 @@ string ActivityLog::getChapterLabel(int activityId) const
     return "Unknown";
 }
 
-// display all logs in table format
 void ActivityLog::displayAllLogs() const
 {
     if (isEmpty())
@@ -260,7 +248,6 @@ void ActivityLog::displayAllLogs() const
     }
 }
 
-// display all logs for one specific learner
 void ActivityLog::displayLogsByLearner(int learnerId) const
 {
     if (isEmpty())
@@ -312,7 +299,6 @@ void ActivityLog::displayLogsByLearner(int learnerId) const
     }
 }
 
-// display only completed activity logs
 void ActivityLog::displayCompletedLogs() const
 {
     if (isEmpty())
@@ -345,7 +331,6 @@ void ActivityLog::displayCompletedLogs() const
     }
 }
 
-// display only incomplete activity logs
 void ActivityLog::displayIncompleteLogs() const
 {
     if (isEmpty())
@@ -378,7 +363,6 @@ void ActivityLog::displayIncompleteLogs() const
     }
 }
 
-// show summary of one learner's performance
 void ActivityLog::showLearnerSummary(int learnerId) const
 {
     if (isEmpty())
@@ -403,12 +387,20 @@ void ActivityLog::showLearnerSummary(int learnerId) const
             totalLogs++;
             totalScore += record.score;
             totalDuration += record.duration;
-            totalFailAttempts += record.failAttempts;
 
             if (record.complete)
+            {
                 completedCount++;
+
+                if (record.score < 60)
+                {
+                    totalFailAttempts++;
+                }
+            }
             else
+            {
                 incompleteCount++;
+            }
         }
     }
 
@@ -433,7 +425,6 @@ void ActivityLog::showLearnerSummary(int learnerId) const
     cout << "Total FailAttempt : " << totalFailAttempts << "\n";
 }
 
-// update the result file by replacing old record or adding new one
 void ActivityLog::updateResultFile(const ActivityResult &result, const string &filename) const
 {
     ActivityResult records[1000];
@@ -525,7 +516,6 @@ void ActivityLog::updateResultFile(const ActivityResult &result, const string &f
     fout.close();
 }
 
-// export all logs from queue into a file
 void ActivityLog::exportToFile(const string &filename) const
 {
     ofstream fout(filename);
@@ -553,7 +543,6 @@ void ActivityLog::exportToFile(const string &filename) const
     fout.close();
 }
 
-// load activity logs from file into the queue
 void ActivityLog::loadFromFile(const string &filename)
 {
     ifstream fin(filename);
